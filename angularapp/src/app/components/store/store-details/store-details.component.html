@@ -1,0 +1,63 @@
+<div *ngIf="viewMode; else editable">
+  <div *ngIf="currentStore.id">
+    <h4>Store</h4>
+    <div>
+      <label><strong>Branch:</strong></label> {{ currentStore.branch }}
+    </div>
+    <div>
+      <label><strong>Address:</strong></label>
+      {{ currentStore.address }}
+    </div>
+    <a class="btn btn-warning"
+       routerLink="/store/{{ currentStore.id }}">
+      Edit
+    </a>
+  </div>
+
+  <div *ngIf="!currentStore.id">
+    <br />
+    <p>Please click on a Store...</p>
+  </div>
+</div>
+
+<ng-template #editable>
+  <div *ngIf="currentStore.id" class="edit-form">
+    <h4>Store</h4>
+    <form>
+      <div class="form-group">
+        <label for="branch">Branch</label>
+        <input type="text"
+               class="form-control"
+               id="branch"
+               [(ngModel)]="currentStore.branch"
+               name="branch" />
+      </div>
+      <div class="form-group">
+        <label for="address">Address</label>
+        <input type="text"
+               class="form-control"
+               id="address"
+               [(ngModel)]="currentStore.address"
+               name="address" />
+      </div>
+    </form>
+    <div class="mt-5 d-flex justify-content-between">
+      <button class="btn btn-danger mb-2" (click)="deleteStore()">
+        Delete
+      </button>
+
+      <button type="submit"
+              class="btn btn-success mb-2"
+              (click)="updateStore()">
+        Update
+      </button>
+    </div>
+
+    <p>{{ message }}</p>
+  </div>
+
+  <div *ngIf="!currentStore.id">
+    <br />
+    <p>Cannot access this Store...</p>
+  </div>
+</ng-template>
